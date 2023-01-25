@@ -2,16 +2,27 @@
 This script implements sorting methods for your Downloads
 """
 from glob import glob
-import os
+from os import mkdir, rename, path, chdir
 
 
-def move_file(src: str, dest: str) -> None:
+def move_file(file: str, dest: str) -> None:
     """
     Moves
-    :param src: path to the old location
+    :param file: path to the old location
     :param dest: path to the new location
     :return: None
     """
+    if not path.exists(dest):
+        mkdir(dest)
+
+    if path.exists(f"{dest}/{file}"):
+        filename, extension = path.splitext(file)
+        counter = 1
+        name = filename
+
+        while path.exists(f"{dest}/{name}"):
+            name = f"{name}({str(counter)}).{extension}"
+            counter += 1
 
 
 def move_images() -> None:
@@ -21,7 +32,7 @@ def move_images() -> None:
     """
     images = glob("*.jpg") + glob("*.png")
     for file in images:
-        print(f"Moving image: {file}")
+        move_file(file, "Pictures")
 
 
 def move_documents() -> None:
@@ -49,7 +60,7 @@ def categorise_downloads() -> None:
     Categorise your downloaded files into images, documents, and archives
     :return: None
     """
-    os.chdir("/mnt/c/Users/adaliszk/Downloads")
+    chdir("/mnt/c/Users/adaliszk/Downloads")
     move_images()
     move_documents()
     move_archives()
