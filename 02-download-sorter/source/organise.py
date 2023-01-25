@@ -15,14 +15,16 @@ def move_file(file: str, dest: str) -> None:
     if not path.exists(dest):
         mkdir(dest)
 
-    if path.exists(f"{dest}/{file}"):
-        filename, extension = path.splitext(file)
-        counter = 1
-        name = filename
+    filename, extension = path.splitext(file)
+    name = filename
 
+    if path.exists(f"{dest}/{file}"):
+        counter = 1
         while path.exists(f"{dest}/{name}"):
             name = f"{name}({str(counter)}).{extension}"
             counter += 1
+
+    rename(file, f"{dest}/{name}")
 
 
 def move_images() -> None:
