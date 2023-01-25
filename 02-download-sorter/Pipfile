@@ -6,6 +6,7 @@ name = "pypi"
 [scripts]
 organise = "python3 source/organise.py"
 watch = "python3 source/watch.py"
+lint = "pylint source"
 
 [packages]
 watchdog = ">=2.2"
