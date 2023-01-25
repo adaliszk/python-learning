@@ -1,0 +1,19 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[scripts]
+organise = "python3 source/organise.py"
+watch = "python3 source/watch.py"
+
+[packages]
+watchdog = ">=2.2"
+
+[dev-packages]
+pylint = ">=2.15"
+pytest = ">=7.2"
+pyfakefs = ">=5.1"
+
+[requires]
+python_version = "3.10"
