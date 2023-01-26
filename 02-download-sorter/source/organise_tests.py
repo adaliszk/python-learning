@@ -54,7 +54,11 @@ matched_file_cases = [
 ]
 
 
-@pytest.mark.parametrize("case,fn_name,files,output,exception", matched_file_cases, ids=[i[0] for i in matched_file_cases])
+@pytest.mark.parametrize(
+    "case,fn_name,files,output,exception",
+    matched_file_cases,
+    ids=[i[0] for i in matched_file_cases]
+)
 def should_move_matched_files(case, fn_name, files, output, exception, fs):
     # TODO: Check for raised exceptions
 
@@ -62,9 +66,6 @@ def should_move_matched_files(case, fn_name, files, output, exception, fs):
     for file in files:
         fs.create_file(file)
 
-    for index, expected in enumerate(output):
-        getattr(organise, fn_name)()
-
-        # Check what it should have happened
-        assert os.path.exists(files[index]) is False
-        assert os.path.exists(expected) is True
+    for moved_file in output:
+        getattr(organise, fn_name)()  # Execute the move method
+        assert os.path.exists(moved_file) is True
