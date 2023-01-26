@@ -70,11 +70,11 @@ def categorise_downloads() -> None:
     Categorise your downloaded files into images, documents, and archives
     :return: None
     """
-    chdir(#input download folder directory)
-    move_images(#input images folder directory)
-    move_documents(#input documents folder directory)
-    move_archives(#input archives folder directory)
-    move_programs(#input programs folder directory)
+    chdir(#input download folder directory)#input download folder directory
+    move_images()#input download folder directory
+    move_documents()#input download folder directory
+    move_archives()#input download folder directory
+    move_programs()#input download folder directory
 
 
 if __name__ == "__main__":
