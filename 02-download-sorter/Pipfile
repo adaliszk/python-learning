@@ -7,6 +7,7 @@ name = "pypi"
 organise = "python3 source/organise.py"
 watch = "python3 source/watch.py"
 lint = "pylint source"
+coverage = "pytest --cov-report html --cov=source source"
 test = "pytest source"
 
 [packages]
@@ -16,6 +17,7 @@ watchdog = ">=2.2"
 pyinstaller = ">=5.7"
 pylint = ">=2.15"
 pytest = ">=7.2"
+pytest-cov = ">=4.0"
 pyfakefs = ">=5.1"
 
 [requires]

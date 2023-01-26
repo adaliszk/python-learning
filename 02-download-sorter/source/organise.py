@@ -41,7 +41,7 @@ def move_file(target: str, dest: str) -> None:
     rename(target, f"{dest}/{name}")
 
 
-def move_images() -> None:
+def move_pictures() -> None:
     """
     Move images from your download to your pictures folder
     :return: None
@@ -87,7 +87,7 @@ def categorise_downloads() -> None:
     :return: None
     """
     # chdir()  # input download folder directory
-    move_images()  # input download folder directory
+    move_pictures()  # input download folder directory
     move_documents()  # input download folder directory
     move_archives()  # input download folder directory
     move_programs()  # input download folder directory

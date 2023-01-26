@@ -14,8 +14,8 @@ move_file_cases = [
     # Happy cases
     ("File without extension", ["something", "directory"], ["directory/something"], None),
     ("File with extension", ["something.txt", "directory"], ["directory/something.txt"], None),
-    ("File with duplicate match", ["something.txt", "directory"],
-     ["directory/something.txt", "directory/something(1).txt"], None),
+    ("File with duplicate match",
+     ["something.txt", "directory"], ["directory/something.txt", "directory/something(1).txt"], None),
 ]
 
 
@@ -49,23 +49,29 @@ def should_move_files_and_create_destinations(case, params, output, exception, f
 
 matched_file_cases = [
     # Happy cases
-    ("JPG image should be moved", "move_images", ["something.jpg"], ["Pictures/something.jpg"], None),
-    ("Only JPG image should be moved", "move_images", ["something.jpg", "abc.txt"], ["Pictures/something.jpg"], None),
+    ("JPG image should be moved",
+     organise.move_pictures, ["something.jpg"], ["Pictures/something.jpg"], [], None),
+    ("Only JPG image should be moved",
+     organise.move_pictures, ["something.jpg", "abc.txt"], ["Pictures/something.jpg"], ["abc.txt"], None),
 ]
 
 
 @pytest.mark.parametrize(
-    "case,fn_name,files,output,exception",
+    "case,matcher_function,files,moved_list,ignored_list,exception",
     matched_file_cases,
     ids=[i[0] for i in matched_file_cases]
 )
-def should_move_matched_files(case, fn_name, files, output, exception, fs):
+def should_move_matched_files(case, matcher_function, files, moved_list, ignored_list, exception, fs):
     # TODO: Check for raised exceptions
 
     # Create the dummy files
     for file in files:
         fs.create_file(file)
 
-    for moved_file in output:
-        getattr(organise, fn_name)()  # Execute the move method
+    matcher_function()  # Execute the move method
+
+    for moved_file in moved_list:
         assert os.path.exists(moved_file) is True
+
+    for ignored_file in ignored_list:
+        assert os.path.exists(ignored_file) is True
