@@ -27,14 +27,30 @@ def move_file(file: str, dest: str) -> None:
     rename(file, f"{dest}/{name}")
 
 
-def move_images() -> None:
+def move_images(file: str, dest: str) -> None:
     """
     Move images from your download to your pictures folder
     :return: None
     """
+
     images = glob("*.jpg") + glob("*.png")
     for file in images:
         move_file(file, "Pictures")
+
+    if not path.exists(dest):
+        mkdir(dest)
+
+        filename, extension = path.splitext(file)
+        name = filename
+
+    if not path.exists(f"{dest}/{file}"):
+        counter = 1
+        while path.exists(f"{dest}/{name}"):
+            name = f"{name}({str(counter)}).{extension})"
+            counter += 1
+
+    rename(file, f"{dest}/{name}")
+
 
 
 def move_documents() -> None:
