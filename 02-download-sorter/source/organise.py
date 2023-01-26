@@ -37,15 +37,12 @@ def move_images(file: str, dest: str) -> None:
         move_file(file, "Pictures")
 
 
-
-
-
 def move_documents() -> None:
     """
     Move PDF, DOC, XLS, and ODF files into your documents folder
     :return: None
     """
-    documents = glob("*.pdf") + glob("*.doc*") + glob("*.odf")
+    documents = glob("*.pdf") + glob("*.doc*") + glob("*.odf") + glob(".torrent")
     for file in documents:
         move_file(file, "documents")
 
@@ -59,18 +56,25 @@ def move_archives() -> None:
     for file in archives:
         move_file(file, "archives")
 
-
-
+def move_programs
+    """
+    Move programs such as exe to your temp folder
+    :return: 
+    """
+programs = glob("*.exe")
+for file in programs:
+    move_file(file, programs)
 
 def categorise_downloads() -> None:
     """
     Categorise your downloaded files into images, documents, and archives
     :return: None
     """
-    chdir("/mnt/c/Users/adaliszk/Downloads")
-    move_images()
-    move_documents()
-    move_archives()
+    chdir(#input download folder directory)
+    move_images(#input images folder directory)
+    move_documents(#input documents folder directory)
+    move_archives(#input archives folder directory)
+    move_programs(#input programs folder directory)
 
 
 if __name__ == "__main__":
