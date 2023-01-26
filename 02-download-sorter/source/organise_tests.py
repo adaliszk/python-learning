@@ -1,14 +1,15 @@
 import pytest
+import glob
 import os
 
-from organise import MissingTarget, MissingDestination, move_file
+import organise
 
 move_file_cases = [
     # Exception cases
-    ("No target with No destination", [None, None], None, MissingDestination),
-    ("No target with Empty destination", [None, ""], None, MissingDestination),
-    ("No target with Destination", [None, "directory"], None, MissingTarget),
-    ("Empty target with Destination", ["", "directory"], None, MissingTarget),
+    ("No target with No destination", [None, None], None, organise.MissingDestination),
+    ("No target with Empty destination", [None, ""], None, organise.MissingDestination),
+    ("No target with Destination", [None, "directory"], None, organise.MissingTarget),
+    ("Empty target with Destination", ["", "directory"], None, organise.MissingTarget),
 
     # Happy cases
     ("File without extension", ["something", "directory"], ["directory/something"], None),
@@ -25,7 +26,7 @@ def should_move_files_and_create_destinations(case, params, output, exception, f
     # Check for the exception triggers
     if exception:
         with pytest.raises(exception):
-            move_file(target, directory)
+            organise.move_file(target, directory)
         return
 
     # Iterate through the expected outputs
@@ -35,6 +36,35 @@ def should_move_files_and_create_destinations(case, params, output, exception, f
         assert os.path.exists(target) is True
 
         # Move the file
-        move_file(target, directory)
-        assert os.path.exists(expected) is True
+        organise.move_file(target, directory)
+
+        # Print out the fake filesystem
+        if not os.path.exists(expected):
+            print(glob.glob("**/*"))
+
+        # Check what it should have happened
         assert os.path.exists(target) is False
+        assert os.path.exists(expected) is True
+
+
+matched_file_cases = [
+    # Happy cases
+    ("JPG image should be moved", "move_images", ["something.jpg"], ["Pictures/something.jpg"], None),
+    ("Only JPG image should be moved", "move_images", ["something.jpg", "abc.txt"], ["Pictures/something.jpg"], None),
+]
+
+
+@pytest.mark.parametrize("case,fn_name,files,output,exception", matched_file_cases, ids=[i[0] for i in matched_file_cases])
+def should_move_matched_files(case, fn_name, files, output, exception, fs):
+    # TODO: Check for raised exceptions
+
+    # Create the dummy files
+    for file in files:
+        fs.create_file(file)
+
+    for index, expected in enumerate(output):
+        getattr(organise, fn_name)()
+
+        # Check what it should have happened
+        assert os.path.exists(files[index]) is False
+        assert os.path.exists(expected) is True

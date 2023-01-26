@@ -30,12 +30,12 @@ def move_file(target: str, dest: str) -> None:
         raise MissingTarget()
 
     filename, extension = path.splitext(target)
-    name = filename
+    name = f"{filename}{extension}"
 
     if path.exists(f"{dest}/{target}"):
         counter = 1
         while path.exists(f"{dest}/{name}"):
-            name = f"{name}({str(counter)}).{extension}"
+            name = f"{filename}({str(counter)}){extension}"
             counter += 1
 
     rename(target, f"{dest}/{name}")
