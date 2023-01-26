@@ -63,7 +63,7 @@ def move_programs
     """
 programs = glob("*.exe")
 for file in programs:
-    move_file(file, programs)
+    move_file(file, "programs")
 
 def categorise_downloads() -> None:
     """
