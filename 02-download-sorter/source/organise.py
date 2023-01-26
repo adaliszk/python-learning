@@ -56,14 +56,14 @@ def move_archives() -> None:
     for file in archives:
         move_file(file, "archives")
 
-def move_programs
+def move_programs() -> None:
     """
     Move programs such as exe to your temp folder
     :return: 
     """
-programs = glob("*.exe")
-for file in programs:
-    move_file(file, "programs")
+    programs = glob("*.exe")
+    for file in programs:
+        move_file(file, "programs")
 
 def categorise_downloads() -> None:
     """
