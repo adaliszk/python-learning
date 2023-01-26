@@ -5,6 +5,14 @@ from glob import glob
 from os import mkdir, rename, path, chdir
 
 
+class MissingTarget(FileNotFoundError):
+    pass
+
+
+class MissingDestination(FileNotFoundError):
+    pass
+
+
 def move_file(target: str, dest: str) -> None:
     """
     Moves
@@ -12,19 +20,25 @@ def move_file(target: str, dest: str) -> None:
     :param dest: path to the new location
     :return: None
     """
+    if not dest:
+        raise MissingDestination()
+
     if not path.exists(dest):
         mkdir(dest)
+
+    if not target:
+        raise MissingTarget()
 
     filename, extension = path.splitext(target)
     name = filename
 
-    if path.exists(f"{dest}/{file}"):
+    if path.exists(f"{dest}/{target}"):
         counter = 1
         while path.exists(f"{dest}/{name}"):
             name = f"{name}({str(counter)}).{extension}"
             counter += 1
 
-    rename(file, f"{dest}/{name}")
+    rename(target, f"{dest}/{name}")
 
 
 def move_images() -> None:
