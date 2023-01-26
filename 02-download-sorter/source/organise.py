@@ -5,17 +5,17 @@ from glob import glob
 from os import mkdir, rename, path, chdir
 
 
-def move_file(file: str, dest: str) -> None:
+def move_file(target: str, dest: str) -> None:
     """
     Moves
-    :param file: path to the old location
+    :param target: path to the old location
     :param dest: path to the new location
     :return: None
     """
     if not path.exists(dest):
         mkdir(dest)
 
-    filename, extension = path.splitext(file)
+    filename, extension = path.splitext(target)
     name = filename
 
     if path.exists(f"{dest}/{file}"):
@@ -60,7 +60,7 @@ def move_archives() -> None:
 def move_programs() -> None:
     """
     Move programs such as exe to your temp folder
-    :return: 
+    :return: None
     """
     programs = glob("*.exe")
     for file in programs:
@@ -72,7 +72,7 @@ def categorise_downloads() -> None:
     Categorise your downloaded files into images, documents, and archives
     :return: None
     """
-    chdir()  # input download folder directory
+    # chdir()  # input download folder directory
     move_images()  # input download folder directory
     move_documents()  # input download folder directory
     move_archives()  # input download folder directory

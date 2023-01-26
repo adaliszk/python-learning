@@ -7,11 +7,13 @@ name = "pypi"
 organise = "python3 source/organise.py"
 watch = "python3 source/watch.py"
 lint = "pylint source"
+test = "pytest source"
 
 [packages]
 watchdog = ">=2.2"
 
 [dev-packages]
+pyinstaller = ">=5.7"
 pylint = ">=2.15"
 pytest = ">=7.2"
 pyfakefs = ">=5.1"
