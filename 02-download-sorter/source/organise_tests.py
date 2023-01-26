@@ -3,7 +3,7 @@ import os
 
 from organise import MissingTarget, MissingDestination, move_file
 
-expectations = [
+move_file_cases = [
     # Exception cases
     ("No target with No destination", [None, None], None, MissingDestination),
     ("No target with Empty destination", [None, ""], None, MissingDestination),
@@ -18,8 +18,8 @@ expectations = [
 ]
 
 
-@pytest.mark.parametrize("case,params,output,exception", expectations, ids=[i[0] for i in expectations])
-def should_create_destination(case, params, output, exception, fs):
+@pytest.mark.parametrize("case,params,output,exception", move_file_cases, ids=[i[0] for i in move_file_cases])
+def should_move_files_and_create_destinations(case, params, output, exception, fs):
     target, directory = params
 
     # Check for the exception triggers
