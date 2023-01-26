@@ -27,7 +27,7 @@ def move_file(file: str, dest: str) -> None:
     rename(file, f"{dest}/{name}")
 
 
-def move_images(file: str, dest: str) -> None:
+def move_images() -> None:
     """
     Move images from your download to your pictures folder
     :return: None
@@ -56,6 +56,7 @@ def move_archives() -> None:
     for file in archives:
         move_file(file, "archives")
 
+
 def move_programs() -> None:
     """
     Move programs such as exe to your temp folder
@@ -65,16 +66,17 @@ def move_programs() -> None:
     for file in programs:
         move_file(file, "programs")
 
+
 def categorise_downloads() -> None:
     """
     Categorise your downloaded files into images, documents, and archives
     :return: None
     """
-    chdir(#input download folder directory)#input download folder directory
-    move_images()#input download folder directory
-    move_documents()#input download folder directory
-    move_archives()#input download folder directory
-    move_programs()#input download folder directory
+    chdir()  # input download folder directory
+    move_images()  # input download folder directory
+    move_documents()  # input download folder directory
+    move_archives()  # input download folder directory
+    move_programs()  # input download folder directory
 
 
 if __name__ == "__main__":
