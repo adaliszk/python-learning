@@ -67,7 +67,7 @@ def should_move_matched_files(case, matcher_function, files, moved_list, ignored
     if exception:
         with pytest.raises(exception):
             matcher_function()
-            moved_list()
+            
         return
 
     # Create the dummy files
