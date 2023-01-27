@@ -1,6 +1,6 @@
-import pytest
-import glob
 import os
+
+import pytest
 
 import organise
 
@@ -38,10 +38,6 @@ def should_move_files_and_create_destinations(case, params, output, exception, f
         # Move the file
         organise.move_file(target, directory)
 
-        # Print out the fake filesystem
-        if not os.path.exists(expected):
-            print(glob.glob("**/*"))
-
         # Check what it should have happened
         assert os.path.exists(target) is False
         assert os.path.exists(expected) is True
@@ -53,6 +49,10 @@ matched_file_cases = [
      organise.move_pictures, ["something.jpg"], ["Pictures/something.jpg"], [], None),
     ("Only JPG image should be moved",
      organise.move_pictures, ["something.jpg", "abc.txt"], ["Pictures/something.jpg"], ["abc.txt"], None),
+    ("PNG image should be moved",
+     organise.move_pictures, ["something.png"], ["pictures/something.png"], [], None),
+    ("Only PNG image should be moved",
+     organise.move_pictures, ["something.png", "abc.txt"], ["pictures/something.png"], ["abc.txt"], None),
 ]
 
 
@@ -64,10 +64,17 @@ matched_file_cases = [
 def should_move_matched_files(case, matcher_function, files, moved_list, ignored_list, exception, fs):
     # TODO: Check for raised exceptions
 
+    if exception:
+        with pytest.raises(exception):
+            matcher_function()
+            moved_list()
+        return
+
     # Create the dummy files
     for file in files:
         fs.create_file(file)
 
+        matcher_function()  # execute the move method
     matcher_function()  # Execute the move method
 
     for moved_file in moved_list:
@@ -75,3 +82,11 @@ def should_move_matched_files(case, matcher_function, files, moved_list, ignored
 
     for ignored_file in ignored_list:
         assert os.path.exists(ignored_file) is True
+
+
+def should_call_categorise_methods():
+    move_pictures = mocker.patch("move_pictures")
+    move_pictures.return_value = None
+
+
+organise.categorise_downloads()

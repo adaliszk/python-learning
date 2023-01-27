@@ -76,7 +76,7 @@ def move_programs() -> None:
     Move programs such as exe to your temp folder
     :return: None
     """
-    programs = glob("*.exe")
+    programs = glob("*.exe") + glob("*msi")
     for file in programs:
         move_file(file, "programs")
 
