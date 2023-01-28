@@ -115,11 +115,3 @@ def should_move_matched_files(case, matcher_function, files, moved_list, ignored
 
     for ignored_file in ignored_list:
         assert os.path.exists(ignored_file) is True
-
-
-def should_call_categorise_methods():
-    move_pictures = mocker.patch("move_pictures")
-    move_pictures.return_value = None
-
-
-organise.categorise_downloads()
