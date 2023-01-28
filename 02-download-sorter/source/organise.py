@@ -56,7 +56,7 @@ def move_documents() -> None:
     Move PDF, DOC, XLS, and ODF files into your documents folder
     :return: None
     """
-    documents = glob("*.pdf") + glob("*.doc*") + glob("*.odf") + glob(".torrent")
+    documents = glob("*.pdf") + glob("*.doc*") + glob("*.odf") + glob("*.torrent")
     for file in documents:
         move_file(file, "documents")
 

@@ -53,6 +53,39 @@ matched_file_cases = [
      organise.move_pictures, ["something.png"], ["pictures/something.png"], [], None),
     ("Only PNG image should be moved",
      organise.move_pictures, ["something.png", "abc.txt"], ["pictures/something.png"], ["abc.txt"], None),
+    ("RAR file should be moved",
+     organise.move_archives, ["something.rar"], ["archives/something.rar"], [], None),
+    ("Only RAR file should be moved",
+     organise.move_archives, ["something.rar", "abc.txt"], ["archives/something.rar"], ["abc.txt"], None),
+    ("ZIP file should be moved",
+     organise.move_archives, ["something.zip"], ["archives/something.zip"], [], None),
+    ("Only ZIP file should be moved",
+     organise.move_archives, ["something.zip", "abc.txt"], ["archives/something.zip"], ["abc.txt"], None),
+    ("EXE file should be moved",
+     organise.move_programs, ["something.exe"], ["programs/something.exe"], [], None),
+    ("Only EXE file should be moved",
+     organise.move_programs, ["something.exe", "abc.txt"], ["programs/something.exe"], ["abc.txt"], None),
+    ("MSI file should be moved",
+     organise.move_programs, ["something.msi"], ["programs/something.msi"], [], None),
+    ("Only MSI file should be moved",
+     organise.move_programs, ["something.msi", "abc.txt"], ["programs/something.msi"], ["abc.txt"], None),
+    ("DOC file should be moved",
+     organise.move_documents, ["something.doc"], ["documents/something.doc"], [], None),
+    ("Only DOC file should be moved",
+     organise.move_documents, ["something.doc", "abc.txt"], ["documents/something.doc"], ["abc.txt"], None),
+    ("PDF file should be moved",
+     organise.move_documents, ["something.pdf"], ["documents/something.pdf"], [], None),
+    ("Only PDF file should be moved",
+     organise.move_documents, ["something.pdf", "abc.txt"], ["documents/something.pdf"], ["abc.txt"], None),
+    ("ODF file should be moved",
+     organise.move_documents, ["something.odf"], ["documents/something.odf"], [], None),
+    ("Only ODF file should be moved",
+     organise.move_documents, ["something.odf", "abc.txt"], ["documents/something.odf"], ["abc.txt"], None),
+    ("TORRENT file should be moved",
+     organise.move_documents, ["something.torrent"], ["documents/something.torrent"], [], None),
+    ("Only TORRENT file should be moved",
+     organise.move_documents, ["something.torrent", "abc.txt"], ["documents/something.torrent"], ["abc.txt"], None),
+
 ]
 
 
@@ -67,7 +100,7 @@ def should_move_matched_files(case, matcher_function, files, moved_list, ignored
     if exception:
         with pytest.raises(exception):
             matcher_function()
-            
+
         return
 
     # Create the dummy files
