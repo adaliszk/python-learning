@@ -6,6 +6,7 @@ name = "pypi"
 [scripts]
 
 [packages]
+watchdog = "*"
 
 [dev-packages]
 pylint = ">=2.15"
