@@ -19,32 +19,14 @@ class EventHandler(tcod.event.EventDispatch[Action]):
     # In that case, we want to quit the program, so we raise SystemExit() to do so.
 
     def ev_keydown(self, event: tcod.event.KeyDown) -> Optional[Action]:
-        # This method will receive key press events,
-        # and return either an Action subclass,
-        # or None, if no valid key was pressed.
-
-        action: Optional[Action] = None
-
-        # action is the variable that will hold whatever subclass of Action we end up assigning it to.
-        # If no valid key press is found, it will remain set to None.
-        # We’ll return it either way.
-
-        key = event.sym
-        # key holds the actual key we pressed.
-        # It doesn't contain additional information about modifiers like Shift or Alt,
-        # just the actual key that was pressed.
-
-        if key == tcod.event.K_UP:
-            action = MovementAction(dx=0, dy=-1)
-        elif key == tcod.event.K_DOWN:
-            action = MovementAction(dx=0, dy=1)
-        elif key == tcod.event.K_LEFT:
-            action = MovementAction(dx=-1, dy=0)
-        elif key == tcod.event.K_RIGHT:
-            action = MovementAction(dx=1, dy=0)
-
-        elif key == tcod.event.K_ESCAPE:
-            action = EscapeAction()
-
-            # no valid key was pressed
-        return action
+        match event.sym:
+            case tcod.event.K_UP:
+                return MovementAction(dx=0, dy=-1)
+            case tcod.event.K_DOWN:
+                return MovementAction(dx=0, dy=1)
+            case tcod.event.K_LEFT:
+                return MovementAction(dx=-1, dy=0)
+            case tcod.event.K_RIGHT:
+                return MovementAction(dx=1, dy=0)
+            case tcod.event.K_ESCAPE:
+                return EscapeAction()
