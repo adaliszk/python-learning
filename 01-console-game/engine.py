@@ -10,8 +10,9 @@ from input_handlers import EventHandler
 
 
 class Engine:
-    def __init__(self, entities: set[Entity], event_handler: EventHandler, game_map: GameMap, player: Entity):
-        self.entities = entities
+    game_map: GameMap
+
+    def __init__(self, event_handler: EventHandler, game_map: GameMap, player: Entity):
         self.event_handler = event_handler
         self.player = player
         self.game_map = game_map
@@ -40,11 +41,5 @@ class Engine:
 
     def render(self, console: Console, context: Context) -> None:
         self.game_map.render(console)
-        for entity in self.entities:
-            # Only print entities that are in the FOV.
-            if self.game_map.visible[entity.x, entity.y]:
-                console.print(entity.x, entity.y, entity.char, fg=entity.color)
 
-            context.present(console)
-
-            console.clear()
+        context.present(console)

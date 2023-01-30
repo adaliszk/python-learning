@@ -41,3 +41,4 @@ class MovementAction(Action):
             return # destination is blocked by a tile
 
         entity.move(self.dx, self.dy)
+
