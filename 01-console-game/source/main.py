@@ -41,6 +41,7 @@ def main() -> None:
     )
 
     engine = Engine(event_handler=event_handler, game_map=game_map, player=player)
+    root_console = tcod.console.Console(screen_width, screen_height, order="F")
 
     with tcod.context.new_terminal(
             screen_width,
@@ -49,8 +50,8 @@ def main() -> None:
             title="yet another roguelike",
             vsync=True,
     ) as context:
-        root_console = tcod.console.Console(screen_width, screen_height, order="F")
         while True:
+            root_console.clear()
             engine.render(console=root_console, context=context)
             events = tcod.event.wait()
             engine.handle_events(events)

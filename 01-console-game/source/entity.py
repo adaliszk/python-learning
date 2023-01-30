@@ -1,36 +1,27 @@
-from __future__ import annotations
+from dataclasses import dataclass
 
 import copy
-from typing import Tuple, TypeVar, TYPE_CHECKING
-
-if TYPE_CHECKING:
-    from game_map import GameMap
-
-T: T = TypeVar("T", bound="Entity")
+from typing import Tuple, TYPE_CHECKING
+from game_map import GameMap
 
 
+@dataclass
 class Entity:
     """
     A generic object to represent players, enemies, items, etc.
     """
+    id: int = 0
+    x: int = 0
+    y: int = 0
+    char: chr = "?"
+    color: Tuple[int, int, int] = (255, 255, 255)
+    name: str = "<Unnamed>"
+    blocks_movement: bool = False
 
-    def __init__(
-            self,
-            x: int = 0,
-            y: int = 0,
-            char: str = "?",
-            color: Tuple[int, int, int] = (255, 255, 255),
-            name: str = "<Unnamed>",
-            blocks_movement: bool = False
-    ):
-        self.x = x
-        self.y = y
-        self.char = char
-        self.color = color
-        self.name = name
-        self.blocks_movement = blocks_movement
+    def __hash__(self) -> int:
+        return self.id
 
-    def spawn(self: T, gamemap: GameMap, x: int, y: int) -> T:
+    def spawn(self, gamemap: GameMap, x: int, y: int):
         """Spawn a copy of this instance at the given location."""
         clone = copy.deepcopy(self)
         clone.x = x

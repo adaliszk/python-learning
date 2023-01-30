@@ -44,10 +44,15 @@ class RectangularRoom:
         )
 
 
-def  place_entities(
+def place_entities(
         room: RectangularRoom, dungeon: GameMap, maximum_monsters: int,
 ) -> None:
-    number_of_monsters = random.randint(0, maximum_monsters)
+    if maximum_monsters == 0:
+        return
+
+    number_of_monsters = random.randint(0, maximum_monsters-1)
+    if number_of_monsters == 0:
+        return
 
     for i in range(number_of_monsters):
         x = random.randint(room.x1 + 1, room.x2 - 1)
@@ -120,7 +125,7 @@ def generate_dungeon(
             for x, y in tunnel_between(rooms[-1].center, new_room.center):
                 dungeon.tiles[x, y] = tile_types.floor
 
-                place_entities(new_room, dungeon, max_monsters_per_room)
+            place_entities(room=new_room, dungeon=dungeon, maximum_monsters=max_monsters_per_room)
 
         # Finally append the new room to the list
         rooms.append(new_room)
