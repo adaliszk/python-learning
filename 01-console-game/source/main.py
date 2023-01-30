@@ -23,7 +23,7 @@ def main() -> None:
     max_monsters_per_room = 2
 
     tileset = tcod.tileset.load_tilesheet(
-        "dejavu10x10_gs_tc.png", 32, 8, tcod.tileset.CHARMAP_TCOD
+        "resources/dejavu10x10_gs_tc.png", 32, 8, tcod.tileset.CHARMAP_TCOD
     )
 
     event_handler = EventHandler()
@@ -52,9 +52,7 @@ def main() -> None:
         root_console = tcod.console.Console(screen_width, screen_height, order="F")
         while True:
             engine.render(console=root_console, context=context)
-
             events = tcod.event.wait()
-
             engine.handle_events(events)
 
 

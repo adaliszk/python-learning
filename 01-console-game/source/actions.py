@@ -6,6 +6,7 @@ if TYPE_CHECKING:
     from engine import Engine
     from entity import Entity
 
+
 class Action:
     def perform(self, engine: Engine, entity: Entity) -> None:
         """perform this action with the objects needed to determine its scope.
@@ -38,7 +39,6 @@ class MovementAction(Action):
         if not engine.game_map.in_bounds(dest_x, dest_y):
             return  # destination is out of bounds
         if not engine.game_map.tiles["walkable"][dest_x, dest_y]:
-            return # destination is blocked by a tile
+            return  # destination is blocked by a tile
 
         entity.move(self.dx, self.dy)
-

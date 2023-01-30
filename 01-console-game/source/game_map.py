@@ -17,8 +17,8 @@ class GameMap:
         self.entities = set(entities)
         self.tiles = np.full((width, height), fill_value=tile_types.wall, order="F")
 
-        self.visible = np.full((width, height), fill_value=False, order="F") # Tilesthe player can currently see.
-        self.explored = np.full((width, height), fill_value=False, order="F") # Tiles the player has seen before.
+        self.visible = np.full((width, height), fill_value=False, order="F")  # Tilesthe player can currently see.
+        self.explored = np.full((width, height), fill_value=False, order="F")  # Tiles the player has seen before.
 
         self.tiles[30:33, 22] = tile_types.wall
 
