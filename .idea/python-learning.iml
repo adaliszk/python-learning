@@ -2,8 +2,8 @@
 <module type="PYTHON_MODULE" version="4">
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
-      <sourceFolder url="file://$MODULE_DIR$/02-download-sorter/source" isTestSource="false" />
-      <excludeFolder url="file://$MODULE_DIR$/02-download-sorter/.pytest_cache" />
+      <sourceFolder url="file://$MODULE_DIR$/download-sorter/source" isTestSource="false" />
+      <excludeFolder url="file://$MODULE_DIR$/download-sorter/.pytest_cache" />
     </content>
     <orderEntry type="jdk" jdkName="Pipenv (python-learning)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
@@ -11,9 +11,8 @@
   <component name="PyNamespacePackagesService">
     <option name="namespacePackageFolders">
       <list>
-        <option value="$MODULE_DIR$/02-download-sorter" />
-        <option value="$MODULE_DIR$/01-console-game" />
-        <option value="$MODULE_DIR$/00-data-storting" />
+        <option value="$MODULE_DIR$/download-sorter" />
+        <option value="$MODULE_DIR$/console-game" />
       </list>
     </option>
   </component>
