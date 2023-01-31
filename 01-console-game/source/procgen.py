@@ -50,7 +50,7 @@ def place_entities(
     if maximum_monsters == 0:
         return
 
-    number_of_monsters = random.randint(0, maximum_monsters-1)
+    number_of_monsters = random.randint(0, maximum_monsters)
     if number_of_monsters == 0:
         return
 
