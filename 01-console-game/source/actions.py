@@ -8,8 +8,7 @@ if TYPE_CHECKING:
 
 
 class Action:
-    def __init(self, entity: Entity) -> None:
-        super().__init__()
+    def __init__(self, entity: Entity) -> None:
         self.entity = entity
 
     @property
@@ -22,7 +21,7 @@ class Action:
 
         `self.engine`is the scope this action is being performed in.
 
-        `sel.entity` is the object performing the action.
+        `self.entity` is the object performing the action.
 
         This method must be overridden by Action subclasses.
         """
@@ -32,6 +31,10 @@ class Action:
 class EscapeAction(Action):
     def perform(self) -> None:
         raise SystemExit
+
+class WaitAction(Action):
+    def perform(self) -> None:
+        pass
 
 
 class ActionWithDirection(Action):
