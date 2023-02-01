@@ -52,4 +52,4 @@ class EventHandler(tcod.event.EventDispatch[Action]):
             case tcod.event.K_RIGHT:
                 return BumpAction(player, dx=1, dy=0)
             case tcod.event.K_ESCAPE:
-                return EscapeAction()
+                return EscapeAction(player)
