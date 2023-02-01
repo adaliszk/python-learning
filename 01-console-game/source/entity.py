@@ -14,7 +14,6 @@ class Entity:
     gamemap: GameMap
 
     def __init__(
-
             self,
             gamemap: Optional[GameMap] = None,
             id: int = 0,

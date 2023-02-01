@@ -37,7 +37,7 @@ class BaseAI(Action, BaseComponent):
                 cost[entity.x, entity.y] += 10
 
         graph = tcod.path.SimpleGraph(cost=cost, cardinal=2, diagonal=3)
-        pathfinder = tcod.path.pathfinder(graph)
+        pathfinder = tcod.path.Pathfinder(graph)
 
         pathfinder.add_root((self.entity.x, self.entity.y))  # start position.
 

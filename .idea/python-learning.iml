@@ -2,6 +2,7 @@
 <module type="PYTHON_MODULE" version="4">
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/01-console-game/source" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/02-download-sorter/source" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/02-download-sorter/.pytest_cache" />
     </content>
