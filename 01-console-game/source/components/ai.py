@@ -15,6 +15,9 @@ if TYPE_CHECKING:
 class BaseAI(Action, BaseComponent):
     entity: Actor
 
+    def __init__(self, entity: Actor):
+        self.entity = entity
+
     def perform(self) -> None:
         raise NotImplementedError()
 

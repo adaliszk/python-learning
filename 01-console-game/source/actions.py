@@ -8,13 +8,6 @@ if TYPE_CHECKING:
 
 
 class Action:
-    def __init__(self, entity: Entity) -> None:
-        self.entity = entity
-
-    @property
-    def engine(self) -> Engine:
-        """Return the engine this action belongs to"""
-        return self.entity.gamemap.engine
 
     def perform(self) -> None:
         """perform this action with the objects needed to determine its scope.
@@ -32,15 +25,26 @@ class EscapeAction(Action):
     def perform(self) -> None:
         raise SystemExit
 
-class WaitAction(Action):
+
+class EntityAction(Action):
+    def __init__(self, entity: Entity):
+        super().__init__()
+        self.entity = entity
+
+    @property
+    def engine(self) -> Engine:
+        """Return the engine this action belongs to"""
+        return self.entity.gamemap.engine
+
+
+class WaitAction(EntityAction):
     def perform(self) -> None:
         pass
 
 
-class ActionWithDirection(Action):
+class ActionWithDirection(EntityAction):
     def __init__(self, entity: Entity, dx: int, dy: int):
         super().__init__(entity)
-
         self.dx = dx
         self.dy = dy
 
