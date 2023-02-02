@@ -62,4 +62,4 @@ class EventHandler(tcod.event.EventDispatch[Action]):
             case tcod.event.K_ESCAPE:
                 return EscapeAction()
 
-# TODO refactor , escape action should not require a player.
+# TODO add diagonal walk and uninterrupted direction change.
