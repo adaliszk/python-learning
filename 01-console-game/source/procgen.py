@@ -6,7 +6,6 @@ from typing import Iterator, List, Tuple, TYPE_CHECKING
 import tcod
 
 import entity_factories
-
 import tile_types
 from game_map import GameMap
 
@@ -93,7 +92,7 @@ def generate_dungeon(
         map_height: int,
         max_monsters_per_room: int,
         engine: Engine,
-    ) -> GameMap:
+) -> GameMap:
     """Generate a new dungeon map."""
     player = engine.player
     dungeon = GameMap(engine, map_width, map_height, entities=[player])
@@ -115,7 +114,7 @@ def generate_dungeon(
             continue  # This room intersects, so go to the next attempt.
         # if there are no intersects then the room is valid.
 
-        # Dig out this rooms inner area.
+        # Dig out the rooms inner area.
         dungeon.tiles[new_room.inner] = tile_types.floor
 
         if len(rooms) == 0:

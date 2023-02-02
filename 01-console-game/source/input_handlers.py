@@ -51,5 +51,15 @@ class EventHandler(tcod.event.EventDispatch[Action]):
                 return BumpAction(player, dx=-1, dy=0)
             case tcod.event.K_RIGHT:
                 return BumpAction(player, dx=1, dy=0)
+            case tcod.event.K_w:
+                return BumpAction(player, dx=0, dy=-1)
+            case tcod.event.K_s:
+                return BumpAction(player, dx=0, dy=1)
+            case tcod.event.K_a:
+                return BumpAction(player, dx=-1, dy=0)
+            case tcod.event.K_d:
+                return BumpAction(player, dx=1, dy=0)
             case tcod.event.K_ESCAPE:
                 return EscapeAction()
+
+# TODO refactor , escape action should not require a player.
