@@ -19,6 +19,14 @@ class EventHandler(tcod.event.EventDispatch[Action]):
         self.engine = engine
 
     def handle_events(self) -> None:
+        raise NotImplementedError()
+
+    def ev_quit(self, event: tcod.event.Quit) -> Optional[Action]:
+        raise SystemExit()
+
+
+class MainGameEventHandler(EventHandler):
+    def handle_events(self) -> None:
         for event in tcod.event.wait():
             action = self.dispatch(event)
 
@@ -29,9 +37,6 @@ class EventHandler(tcod.event.EventDispatch[Action]):
 
             self.engine.handle_enemy_turns()
             self.engine.update_fov()  # Update the FOV before the players next action.
-
-    def ev_quit(self, event: tcod.event.Quit) -> Optional[Action]:
-        raise SystemExit()
 
     # using a method of EventDispatch: ev_quit is a method defined in EventDispatch,
     # which we’re overriding in EventHandler.
@@ -62,4 +67,15 @@ class EventHandler(tcod.event.EventDispatch[Action]):
             case tcod.event.K_ESCAPE:
                 return EscapeAction()
 
+
 # TODO add diagonal walk and uninterrupted direction change.
+
+class GameOverEventHandler(EventHandler):
+    def handle_events(self) -> None:
+        for event in tcod.event.wait():
+            action = self.dispatch(event)
+
+            if action is None:
+                continue
+
+            action.perform()
