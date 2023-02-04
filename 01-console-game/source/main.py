@@ -3,9 +3,8 @@ import copy
 import tcod
 
 import color
-from engine import Engine
 import entity_factories
-
+from engine import Engine
 from procgen import generate_dungeon
 
 
@@ -56,8 +55,9 @@ def main() -> None:
     ) as context:
         while True:
             root_console.clear()
-            engine.render(console=root_console, context=context)
-            engine.event_handler.handle_events()
+            engine.event_handler.on_render(console=root_console)
+            context.present(root_console)
+            engine.event_handler.handle_events(context)
 
 
 if __name__ == "__main__":
