@@ -27,7 +27,7 @@ class EventHandler(tcod.event.EventDispatch[Action]):
         if self.engine.game_map.in_bounds(event.tile.x, event.tile.y):
             self.engine.mouse_location = event.tile.x, event.tile.y
 
-     # TODO fix runtime error after death. ` uninitialized tiles. pass through `Context.convert_event`
+    # TODO fix runtime error after death. ` uninitialized tiles. pass through `Context.convert_event`
 
     def ev_quit(self, event: tcod.event.Quit) -> Optional[Action]:
         raise SystemExit()
@@ -79,6 +79,8 @@ class MainGameEventHandler(EventHandler):
                 return BumpAction(player, dx=1, dy=0)
             case tcod.event.K_ESCAPE:
                 return EscapeAction()
+            case tcod.event.K_v:
+                self.engine.event_handler = HistoryViewer(self.engine)
 
 
 # TODO add diagonal walk and uninterrupted direction change.
@@ -92,3 +94,63 @@ class GameOverEventHandler(EventHandler):
                 continue
 
             action.perform()
+
+
+class HistoryViewer(EventHandler):
+    """Print the history on a larger window which can be navigated."""
+
+    def __init__(self, engine: Engine):
+        super().__init__(engine)
+        self.log_length = len(engine.message_log.messages)
+        self.cursor = self.log_length - 1
+
+    def move_cursor(self, new_value: int):
+        cursor = self.cursor + new_value
+
+        if cursor < 0:
+            cursor = self.log_length - 1
+
+        if cursor > self.log_length:
+            cursor = 0
+
+        self.cursor = cursor
+
+    def on_render(self, console: tcod.Console) -> None:
+        super().on_render(console)  # Draw the main state as the background.
+
+        log_console = tcod.Console(console.width - 6, console.height - 6)
+
+        # Draw a frame with a custom banner title.
+        log_console.draw_frame(0, 0, log_console.width, log_console.height)
+        log_console.print_box(
+            0, 0, log_console.width, 1, "┤Message history├", alignment=tcod.CENTER
+        )
+
+        # Render the message log using the cursor parameter.
+        self.engine.message_log.render_messages(
+            console=log_console,
+            x=1,
+            y=1,
+            width=log_console.width - 2,
+            height=log_console.height - 2,
+            messages=self.engine.message_log.messages[: self.cursor + 1],
+        )
+        log_console.blit(console, 3, 3)
+
+    def ev_keydown(self, event: tcod.event.KeyDown) -> None:
+        match event.sym:
+            case tcod.event.K_HOME:
+                self.cursor = 0
+            case tcod.event.K_PAGEUP:
+                self.move_cursor(-10)
+            case tcod.event.K_UP:
+                self.move_cursor(-1)
+            case tcod.event.K_DOWN:
+                self.move_cursor(+1)
+            case tcod.event.K_PAGEDOWN:
+                self.move_cursor(+10)
+            case tcod.event.K_END:
+                self.cursor = self.log_length - 1
+            case _:
+                self.switch_handler(MainGameEventHandler)
+                # self.engine.event_handler = MainGameEventHandler(self.engine)
