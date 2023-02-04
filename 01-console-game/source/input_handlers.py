@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Optional, TYPE_CHECKING
+from typing import Optional, TYPE_CHECKING, Type
 
 import tcod.event
 
@@ -24,10 +24,12 @@ class EventHandler(tcod.event.EventDispatch[Action]):
             self.dispatch(event)
 
     def ev_mousemotion(self, event: tcod.event.MouseMotion) -> None:
+        if not self.engine.player.is_alive:
+            return
+
         if self.engine.game_map.in_bounds(event.tile.x, event.tile.y):
             self.engine.mouse_location = event.tile.x, event.tile.y
 
-    # TODO fix runtime error after death. ` uninitialized tiles. pass through `Context.convert_event`
 
     def ev_quit(self, event: tcod.event.Quit) -> Optional[Action]:
         raise SystemExit()
