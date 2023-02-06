@@ -8,7 +8,10 @@ if TYPE_CHECKING:
 
 
 class BaseComponent:
-    entity: Entity # Owning entity instance.
+    entity: Entity  # Owning entity instance.
+
+    def __init__(self, entity: Entity):
+        self.entity = entity
 
     @property
     def engine(self) -> Engine:

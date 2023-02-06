@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Optional
 
 from tcod.console import Console
 from tcod.map import compute_fov
@@ -16,7 +16,7 @@ if TYPE_CHECKING:
 
 
 class Engine:
-    game_map: GameMap
+    game_map: Optional[GameMap]
 
     def __init__(self, player: Actor):
         self.event_handler: EventHandler = MainGameEventHandler(self)

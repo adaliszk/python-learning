@@ -49,8 +49,8 @@ class MainGameEventHandler(EventHandler):
 
             action.perform()
 
-            self.engine.handle_enemy_turns()
-            self.engine.update_fov()  # Update the FOV before the players next action.
+        self.engine.handle_enemy_turns()
+        self.engine.update_fov()  # Update the FOV before the players next action.
 
     # using a method of EventDispatch: ev_quit is a method defined in EventDispatch,
     # which we’re overriding in EventHandler.

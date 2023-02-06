@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Optional
 
 import color
 from components.base_components import BaseComponent
@@ -12,9 +12,10 @@ if TYPE_CHECKING:
 
 
 class Fighter(BaseComponent):
-    entity: Actor
+    entity: Optional[Actor]
 
     def __init__(self, hp: int, defense: int, power: int):
+        super().__init__(self.entity)
         self.max_hp = hp
         self._hp = hp
         self.defense = defense
