@@ -11,12 +11,12 @@ def main() -> None:
     tiles = load_tilesheet("resources/dejavu10x10_gs_tc.png", 32, 8, CHARMAP_TCOD)
     canvas = Console(screen.width, screen.height, order="F")
     scene = Dungeon(screen)
-    engine = Engine(screen, scene)
+    engine = Engine(screen, scene, canvas)
 
     with new_terminal(screen.width, screen.height, tileset=tiles, title="MY ROUGE GAME", vsync=True) as context:
         while True:
             canvas.clear()
-            engine.scene.on_render(canvas=canvas, screen=screen)
+            engine.scene.on_render(engine=engine, screen=screen)
             context.present(canvas)
             engine.scene.listen(context)
 

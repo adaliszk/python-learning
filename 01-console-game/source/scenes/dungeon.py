@@ -1,12 +1,12 @@
 from dataclasses import dataclass
-from typing import List, Any
+from typing import List, Any, TYPE_CHECKING
 
 from numpy.typing import NDArray
 from numpy import select, full
 
 import random
 
-from framework import Canvas, Context, Scene, Screen
+from framework import Canvas, Context, Scene, Screen, Engine
 
 import tilemap
 from procgen import RectangularRoom, tunnel_between
@@ -57,7 +57,7 @@ class Dungeon(Scene):
             self.tiles[new_room.inner] = tilemap.FLOOR
             self.rooms.append(new_room)
 
-    def on_render(self, canvas: Canvas, screen: Screen, **kwargs) -> None:
+    def on_render(self, engine: Engine, screen: Screen, **kwargs) -> None:
         # canvas.rgb[screen.inner_left: screen.inner_right, screen.inner_top] = White
         # canvas.rgb[screen.inner_left: screen.inner_right, screen.inner_bottom] = White
         # canvas.rgb[screen.inner_left, screen.inner_top: screen.inner_bottom] = White
@@ -71,7 +71,6 @@ class Dungeon(Scene):
 
         for room in self.rooms:
             for x, y in tunnel_between(self.rooms[-1].center, room.center):
-                canvas.rgb[x, y] = White
+                self.tiles[x, y] = tilemap.FLOOR
 
-    def listen(self, context: Context):
-        super().listen(context)
+        engine.render(center=self.tiles)
